@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="To-Do Life Dashboard — a personal productivity hub" />
+    <title>To-Do Life Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <h1 class="site-title">Dashboard</h1>
+      <button id="theme-toggle" class="btn btn--icon" aria-label="Toggle light/dark theme" type="button">
+        🌙
+      </button>
+      <button id="settings-open" class="btn btn--icon" aria-label="Open settings" type="button">
+        ⚙️
+      </button>
+    </header>
+
+    <!-- Main content -->
+    <main class="dashboard-grid">
+
+      <!-- Greeting Widget -->
+      <section class="widget widget--greeting" aria-label="Greeting and clock">
+        <div id="greeting-time" class="greeting__time" aria-live="polite">00:00:00</div>
+        <div id="greeting-date" class="greeting__date">Monday, 1 January 2025</div>
+        <div id="greeting-text" class="greeting__text" aria-live="polite">Good Morning</div>
+      </section>
+
+      <!-- Focus Timer -->
+      <section class="widget widget--timer" aria-label="Focus timer">
+        <h2 class="widget__title">Focus Timer</h2>
+        <div id="timer-display" class="timer__display" aria-live="polite" aria-label="Time remaining">25:00</div>
+        <div id="timer-notification" class="timer__notification" role="alert" aria-live="assertive" hidden></div>
+        <div class="timer__controls">
+          <button id="timer-start" class="btn btn--primary" type="button">Start</button>
+          <button id="timer-stop" class="btn btn--secondary" type="button" disabled>Stop</button>
+          <button id="timer-reset" class="btn btn--secondary" type="button">Reset</button>
+        </div>
+      </section>
+
+      <!-- To-Do List -->
+      <section class="widget widget--tasks" aria-label="To-do list">
+        <h2 class="widget__title">Tasks</h2>
+        <div class="task-input-group">
+          <input
+            id="task-input"
+            class="input"
+            type="text"
+            placeholder="Add a new task…"
+            maxlength="200"
+            aria-label="New task description"
+          />
+          <button id="task-add" class="btn btn--primary" type="button">Add</button>
+        </div>
+        <span id="task-input-error" class="error-msg" role="alert" aria-live="polite"></span>
+        <div class="task-sort-group">
+          <label for="task-sort" class="label">Sort by:</label>
+          <select id="task-sort" class="select" aria-label="Sort tasks">
+            <option value="creation">Creation order</option>
+            <option value="alpha-asc">A → Z</option>
+            <option value="alpha-desc">Z → A</option>
+            <option value="completed-last">Completed last</option>
+            <option value="completed-first">Completed first</option>
+          </select>
+        </div>
+        <ul id="task-list" class="task-list" aria-label="Task list" aria-live="polite">
+          <!-- Tasks rendered here by JS -->
+        </ul>
+        <p id="task-empty" class="empty-state" hidden>No tasks yet.</p>
+      </section>
+
+      <!-- Quick Links -->
+      <section class="widget widget--links" aria-label="Quick links">
+  <h2 class="widget__title">Quick Links</h2>
+  
+  <div class="link-input-group">
+    <div class="input-field-container">
+      <input
+        id="link-label-input"
+        class="input"
+        type="text"
+        placeholder="Label"
+        maxlength="100"
+        aria-label="Link label"
+      />
+      <span id="link-label-error" class="error-msg" role="alert" aria-live="polite"></span>
+    </div>
+
+    <div class="input-field-container">
+      <input
+        id="link-url-input"
+        class="input"
+        type="url"
+        placeholder="https://example.com"
+        aria-label="Link URL"
+      />
+      <span id="link-url-error" class="error-msg" role="alert" aria-live="polite"></span>
+    </div>
+
+    <button id="link-add" class="btn btn--primary" type="button">Add</button>
+  </div>
+
+  <div id="links-container" class="links-container" aria-label="Saved links">
+    </div>
+  <p id="links-empty" class="empty-state" hidden>No links saved yet.</p>
+</section>
+
+    </main>
+
+    <!-- Settings Panel -->
+    <aside id="settings-panel" class="settings-panel" role="dialog" aria-modal="true" aria-label="Settings" hidden>
+      <div class="settings-panel__inner">
+        <div class="settings-panel__header">
+          <h2 class="settings-panel__title">Settings</h2>
+          <button id="settings-close" class="btn btn--icon" aria-label="Close settings" type="button">✕</button>
+        </div>
+        <div class="settings-panel__body">
+          <div class="form-field">
+            <label for="settings-name" class="label">Your name</label>
+            <input
+              id="settings-name"
+              class="input"
+              type="text"
+              placeholder="e.g. Nesya"
+              maxlength="50"
+              aria-describedby="settings-name-error"
+            />
+            <span id="settings-name-error" class="error-msg" role="alert" aria-live="polite"></span>
+          </div>
+          <div class="form-field">
+            <label for="settings-duration" class="label">Focus duration (minutes)</label>
+            <input
+              id="settings-duration"
+              class="input"
+              type="number"
+              min="1"
+              max="120"
+              placeholder="1–120"
+              aria-describedby="settings-duration-error"
+            />
+            <span id="settings-duration-error" class="error-msg" role="alert" aria-live="polite"></span>
+          </div>
+        </div>
+        <div class="settings-panel__footer">
+          <button id="settings-save" class="btn btn--primary" type="button">Save</button>
+          <button id="settings-cancel" class="btn btn--secondary" type="button">Cancel</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Notification area -->
+    <div id="notification-area" class="notification-area" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
